@@ -31,8 +31,11 @@ export interface Order {
     updated_at: Date;
 }
 
-// In-memory storage
-const orders: Map<string, Order> = new Map();
+// In-memory storage (Singleton for persists in dev)
+const globalForOrders = global as unknown as { ordersMap: Map<string, Order> };
+const orders = globalForOrders.ordersMap || new Map<string, Order>();
+
+if (process.env.NODE_ENV !== "production") globalForOrders.ordersMap = orders;
 
 /**
  * Create a new pending order

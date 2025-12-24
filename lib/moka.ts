@@ -295,7 +295,8 @@ export async function createAdvancedOrder(
   }[]
 ): Promise<AdvancedOrderResponse> {
   // Generate unique order ID
-  const orderId = `WEB-${Date.now()}`;
+  // Generate unique order ID with random suffix
+  const orderId = `WEB-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
   // Format time for Indonesia (WIB +7)
   const now = new Date();
@@ -331,9 +332,7 @@ export async function createAdvancedOrder(
     client_created_at: formattedTime,
     application_order_id: orderId,
     payment_type: "Cash",
-    note: customerNote
-      ? `[Website] ${customerNote} | ${itemsSummary}`
-      : `[Website] ${itemsSummary}`,
+    note: customerNote || `[Website] ${itemsSummary}`,
     discount_amount: null,
     order_items: orderItems,
   };

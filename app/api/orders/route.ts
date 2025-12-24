@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     // 1. Validate Input with Zod
     const validation = OrderSchema.safeParse(body);
     if (!validation.success) {
-      const errors = validation.error.errors.map((e) => e.message).join(", ");
+      const errors = validation.error.issues.map((e) => e.message).join(", ");
       return NextResponse.json({ error: errors }, { status: 400 });
     }
 
@@ -49,12 +49,20 @@ export async function POST(req: Request) {
     console.log(`   Items: ${items.length}`);
     console.log(`   Total: Rp ${totalAmount.toLocaleString("id-ID")}`);
 
-    // 3. Send to Moka via Advanced Orderings API
+    // 3. Format Note for "Bayar di Kasir"
+    const itemsSummary = items.map((item) => `${item.name} x${item.quantity}`).join(", ");
+    const noteContent = [
+      `⚠️ BAYAR DI KASIR (Website Order)`,
+      customer_note ? `Note: ${customer_note}` : null,
+      itemsSummary
+    ].filter(Boolean).join(" - ");
+
+    // 4. Send to Moka via Advanced Orderings API
     const result = await createAdvancedOrder(
       outlet_id,
       customer_name,
       customer_phone || "",
-      customer_note || "",
+      noteContent,
       items
     );
 
