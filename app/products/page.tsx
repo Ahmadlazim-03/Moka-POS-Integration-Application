@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MapPin, Store, ShoppingBag, Sparkles } from "lucide-react";
 import ProductGrid from "@/components/products/ProductGrid";
+import OutletTabs from "@/components/products/OutletTabs";
 
 export default async function ProductsPage({
   searchParams,
@@ -65,33 +66,7 @@ export default async function ProductsPage({
       </div>
 
       {/* Outlet Tabs */}
-      <div className="sticky top-16 z-30 bg-white/80 backdrop-blur-lg border-b shadow-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex gap-2 overflow-x-auto py-4 no-scrollbar">
-            {outlets.map((outlet) => {
-              const isActive = outlet.id === activeOutletId;
-              return (
-                <Link
-                  key={outlet.id}
-                  href={`/products?outletId=${outlet.id}`}
-                  scroll={false}
-                >
-                  <Button
-                    variant={isActive ? "default" : "outline"}
-                    size="sm"
-                    className={`rounded-full whitespace-nowrap transition-all ${isActive
-                      ? "bg-gradient-to-r from-amber-500 to-orange-500 border-0 shadow-lg shadow-amber-500/25 scale-105"
-                      : "hover:bg-amber-50 hover:border-amber-200"
-                      }`}
-                  >
-                    {outlet.name}
-                  </Button>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <OutletTabs initialOutlets={outlets} activeOutletId={activeOutletId} />
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8 md:py-12">
