@@ -116,7 +116,7 @@ async function postMoka(endpoint: string, body: object) {
 export async function getMokaOutlets(): Promise<MokaOutlet[]> {
   try {
     // Menggunakan endpoint profile untuk melihat akses outlet user
-    const data = await fetchMoka('/profile/self', 'force-cache'); // Cache profil 
+    const data = await fetchMoka('/profile/self', 'no-store'); // Fetch fresh profile every time 
 
     // Mapping dari array ID dan Name terpisah menjadi array of object
     // Data asli Moka: { outlet_ids: [1, 2], outlet_names: ["A", "B"] }
