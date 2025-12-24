@@ -3,7 +3,7 @@ import { getMokaOutlets, getMokaProducts } from "@/lib/moka";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MapPin, Store, ShoppingBag, Sparkles } from "lucide-react";
-import ProductCard from "@/components/ui/ProductCard";
+import ProductGrid from "@/components/products/ProductGrid";
 
 export default async function ProductsPage({
   searchParams,
@@ -34,7 +34,10 @@ export default async function ProductsPage({
   const activeOutletName =
     outlets.find((o) => o.id === activeOutletId)?.name || "Outlet";
 
-  const products = await getMokaProducts(activeOutletId);
+  const allProducts = await getMokaProducts(activeOutletId);
+  const products = allProducts.filter(
+    (p) => p.name !== "Custom Amount" && p.name !== "Harga Variabel"
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50/50 via-white to-white">
@@ -77,8 +80,8 @@ export default async function ProductsPage({
                     variant={isActive ? "default" : "outline"}
                     size="sm"
                     className={`rounded-full whitespace-nowrap transition-all ${isActive
-                        ? "bg-gradient-to-r from-amber-500 to-orange-500 border-0 shadow-lg shadow-amber-500/25 scale-105"
-                        : "hover:bg-amber-50 hover:border-amber-200"
+                      ? "bg-gradient-to-r from-amber-500 to-orange-500 border-0 shadow-lg shadow-amber-500/25 scale-105"
+                      : "hover:bg-amber-50 hover:border-amber-200"
                       }`}
                   >
                     {outlet.name}
@@ -92,37 +95,11 @@ export default async function ProductsPage({
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8 md:py-12">
-        {products.length > 0 ? (
-          <>
-            <p className="text-sm text-muted-foreground mb-6">
-              Menampilkan <span className="font-semibold text-foreground">{products.length}</span> menu
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-              {products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  outletId={activeOutletId}
-                  outletName={activeOutletName}
-                />
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-24 text-center bg-white rounded-3xl border border-dashed border-gray-200">
-            <div className="bg-gradient-to-br from-gray-100 to-gray-50 p-6 rounded-full mb-6">
-              <ShoppingBag className="w-12 h-12 text-gray-300" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Menu Belum Tersedia
-            </h3>
-            <p className="text-gray-500 max-w-sm">
-              Belum ada produk di outlet{" "}
-              <span className="font-semibold">{activeOutletName}</span>. Coba
-              pilih outlet lain.
-            </p>
-          </div>
-        )}
+        <ProductGrid
+          initialProducts={products}
+          outletId={activeOutletId}
+          outletName={activeOutletName}
+        />
       </div>
     </div>
   );

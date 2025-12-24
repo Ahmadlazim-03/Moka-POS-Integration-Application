@@ -1,0 +1,45 @@
+BASE_URL: https://api.mokapos.com/v1
+Token: Found
+Fetching profile to access outlets...
+FETCH: https://api.mokapos.com/v1/profile/self
+Found outlet IDs: [ 1136617, 1136618, 1136556 ]
+Using Outlet ID: 1136617
+FETCH: https://api.mokapos.com/v1/outlets/1136617/items
+No valid product with price > 0 found. Using first item as fallback.
+Selected Product: Custom Amount
+Variant: None
+Price: null
+Sending Payload: {
+  "checkout": {
+    "note": "AUTO-ACCEPT DEBUG TEST",
+    "client_created_at": "2025-12-24T01:33:39.498+07:00",
+    "total_gross_sales": null,
+    "total_net_sales": null,
+    "total_collected": null,
+    "amount_pay": null,
+    "items": [
+      {
+        "quantity": 1,
+        "item_id": 118402325,
+        "item_name": "Custom Amount",
+        "item_variant_id": 185449234,
+        "item_variant_name": "Standard",
+        "category_id": 6838049,
+        "category_name": "Uncategorized",
+        "client_price": null,
+        "gross_sales": null,
+        "net_sales": null
+      }
+    ]
+  }
+}
+Post Error 400: {"data":{},"meta":{"code":400,"error_message":"Item does not found or already removed.","error_type":"Items::Errors::ItemsServiceError"}}
+JSON Error Details: {
+  "data": {},
+  "meta": {
+    "code": 400,
+    "error_message": "Item does not found or already removed.",
+    "error_type": "Items::Errors::ItemsServiceError"
+  }
+}
+❌ SCRIPT FAILED: Post failed: 400

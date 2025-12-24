@@ -1,0 +1,381 @@
+FOUND_PATH: /v1/outlets/{outlet_id}/advanced_orderings/auto_accept
+{
+  "get": {
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Auto Accept Status",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Open to see the detailed response",
+              "properties": {
+                "auto_accept_status": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "meta": {
+              "$ref": "#/definitions/MetadataProperty"
+            }
+          }
+        },
+        "examples": {
+          "application/json": {
+            "data": {
+              "auto_accept_status": true
+            },
+            "meta": {
+              "code": 200,
+              "errors": {}
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad parameter",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 400,
+              "error_message": "param is missing or the value is empty: end",
+              "error_type": "ActionController::ParameterMissing"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "The access token is invalid",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 401,
+              "error_message": "The access token is invalid",
+              "error_type": "Doorkeeper::OAuth::InvalidTokenResponse"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Access token valid, but is denied to access the resource. Or, the merchant`s outlet is expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            },
+            "examples": {
+              "scope_not_granted": {
+                "value": {
+                  "data": null,
+                  "meta": {
+                    "code": 403,
+                    "error_message": "The token isn't granted at least one of these scopes: the_related_scope_here",
+                    "error_type": "Doorkeeper::OAuth::ForbiddenTokenResponse"
+                  }
+                },
+                "summary": "The token is not granted specific scope"
+              },
+              "expired_outlet": {
+                "value": {
+                  "data": null,
+                  "meta": {
+                    "code": 403,
+                    "error_message": "Outlet Griffith Padilla (ID:27686) has been expired. Owner must renew the subscription by logging in to Moka's Back-Office.",
+                    "error_type": "ApiErrors::OutletExpiredError"
+                  }
+                },
+                "summary": "The outlet is expired, and cannot be accessed"
+              }
+            }
+          }
+        }
+      },
+      "410": {
+        "description": "API Deprecated",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 410,
+              "error_message": "Service Deprecated",
+              "error_type": "ApiErrors::TerminatedEndPoint"
+            }
+          }
+        }
+      },
+      "415": {
+        "description": "Unsupported Media Type",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            },
+            "examples": {
+              "must_application_json": {
+                "value": {
+                  "data": null,
+                  "meta": {
+                    "code": 415,
+                    "error_message": "Please use 'Content-Type: application/json' as your http headers",
+                    "error_type": "ApiErrors::SetApplicationJsonAsContentTypeError"
+                  }
+                },
+                "summary": "You must specify application/json as the Content-Type in HTTP headers"
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 500,
+              "error_message": "Internal Server Error",
+              "error_type": "Exception"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "access_token": [
+          "checkout"
+        ]
+      }
+    ],
+    "description": "Retrieve auto accept status of an outlet. Required permissions: `checkout`",
+    "operationId": "getAutoAcceptV1",
+    "tags": [
+      "Advanced Orderings"
+    ],
+    "parameters": [
+      {
+        "name": "outlet_id",
+        "description": "The merchant's outlet ID",
+        "in": "path",
+        "required": true,
+        "type": "integer"
+      }
+    ]
+  },
+  "post": {
+    "produces": [
+      "application/json"
+    ],
+    "responses": {
+      "200": {
+        "description": "Auto Accept Status",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Open to see the detailed response",
+              "properties": {
+                "auto_accept_status": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "meta": {
+              "$ref": "#/definitions/MetadataProperty"
+            }
+          }
+        },
+        "examples": {
+          "application/json": {
+            "data": {
+              "auto_accept_status": true
+            },
+            "meta": {
+              "code": 200,
+              "errors": {}
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad parameter",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 400,
+              "error_message": "param is missing or the value is empty: end",
+              "error_type": "ActionController::ParameterMissing"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "The access token is invalid",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 401,
+              "error_message": "The access token is invalid",
+              "error_type": "Doorkeeper::OAuth::InvalidTokenResponse"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Access token valid, but is denied to access the resource. Or, the merchant`s outlet is expired.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            },
+            "examples": {
+              "scope_not_granted": {
+                "value": {
+                  "data": null,
+                  "meta": {
+                    "code": 403,
+                    "error_message": "The token isn't granted at least one of these scopes: the_related_scope_here",
+                    "error_type": "Doorkeeper::OAuth::ForbiddenTokenResponse"
+                  }
+                },
+                "summary": "The token is not granted specific scope"
+              },
+              "expired_outlet": {
+                "value": {
+                  "data": null,
+                  "meta": {
+                    "code": 403,
+                    "error_message": "Outlet Griffith Padilla (ID:27686) has been expired. Owner must renew the subscription by logging in to Moka's Back-Office.",
+                    "error_type": "ApiErrors::OutletExpiredError"
+                  }
+                },
+                "summary": "The outlet is expired, and cannot be accessed"
+              }
+            }
+          }
+        }
+      },
+      "410": {
+        "description": "API Deprecated",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 410,
+              "error_message": "Service Deprecated",
+              "error_type": "ApiErrors::TerminatedEndPoint"
+            }
+          }
+        }
+      },
+      "415": {
+        "description": "Unsupported Media Type",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            },
+            "examples": {
+              "must_application_json": {
+                "value": {
+                  "data": null,
+                  "meta": {
+                    "code": 415,
+                    "error_message": "Please use 'Content-Type: application/json' as your http headers",
+                    "error_type": "ApiErrors::SetApplicationJsonAsContentTypeError"
+                  }
+                },
+                "summary": "You must specify application/json as the Content-Type in HTTP headers"
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "schema": {
+          "$ref": "#/definitions/ErrorModel"
+        },
+        "examples": {
+          "application/json": {
+            "data": {},
+            "meta": {
+              "code": 500,
+              "error_message": "Internal Server Error",
+              "error_type": "Exception"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "access_token": [
+          "checkout"
+        ]
+      }
+    ],
+    "description": "Set auto accept feature of an outlet. Required permissions: `checkout`<div>\n  <div>\n    Auto accept feature allows the merchant to receive incoming order without the needs of accepting it. The boolean is defined as follows:\n  </div>\n  <table>\n    <tr>\n      <th>Auto Accept Status</th>\n      <th>Description</th>\n    </tr>\n    <tr>\n      <td>ON</td>\n      <td>Incoming orders will be automatically accepted. Merchant only need to complete an order.</td>\n    </tr>\n    <tr>\n      <td>OFF</td>\n      <td>Incoming orders need to be manually accepted. Merchant needs to accept and complete an order.</td>\n    </tr>\n  </table>\n</div>\n",
+    "operationId": "setAutoAcceptV1",
+    "tags": [
+      "Advanced Orderings"
+    ],
+    "parameters": [
+      {
+        "name": "outlet_id",
+        "description": "The merchant's outlet ID",
+        "in": "path",
+        "required": true,
+        "type": "integer"
+      },
+      {
+        "name": "auto_accept",
+        "in": "body",
+        "description": "Auto Accept JSON request",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "required": true,
+          "properties": {
+            "auto_accept_status": {
+              "type": "boolean",
+              "example": true,
+              "description": "Set the auto accept status for that outlet",
+              "required": true
+            }
+          }
+        }
+      }
+    ]
+  }
+}

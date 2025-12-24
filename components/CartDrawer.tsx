@@ -39,7 +39,7 @@ export default function CartDrawer() {
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetContent className="flex flex-col w-full sm:max-w-lg">
-                <SheetHeader className="space-y-1">
+                <SheetHeader className="space-y-1 relative pr-8">
                     <SheetTitle className="flex items-center gap-2 text-xl">
                         <ShoppingCart className="h-5 w-5" />
                         Keranjang Belanja
@@ -48,6 +48,20 @@ export default function CartDrawer() {
                         <SheetDescription className="text-sm">
                             Outlet: <span className="font-medium text-foreground">{outletName}</span>
                         </SheetDescription>
+                    )}
+
+                    {items.length > 0 && (
+                        <div className="absolute right-0 top-0">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-xs text-destructive hover:text-destructive hover:bg-destructive/10 h-8 px-2"
+                                onClick={clearCart}
+                            >
+                                <Trash2 className="h-3.5 w-3.5 mr-1" />
+                                Kosongkan
+                            </Button>
+                        </div>
                     )}
                 </SheetHeader>
 
@@ -147,7 +161,7 @@ export default function CartDrawer() {
                             </ScrollArea>
                         </div>
 
-                        <div className="space-y-4 pt-4 border-t">
+                        <div className="space-y-4 pt-4 border-t bg-white">
                             {/* Summary */}
                             <div className="space-y-2">
                                 <div className="flex justify-between text-sm">
@@ -157,25 +171,25 @@ export default function CartDrawer() {
                                 <Separator />
                                 <div className="flex justify-between text-lg">
                                     <span className="font-semibold">Total</span>
-                                    <span className="font-bold text-primary">{formatRupiah(totalPrice)}</span>
+                                    <span className="font-bold text-primary text-xl">
+                                        {formatRupiah(totalPrice)}
+                                    </span>
                                 </div>
                             </div>
 
                             {/* Actions */}
-                            <div className="flex gap-2">
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                                    onClick={clearCart}
+                            <div className="pt-2">
+                                <Link
+                                    href="/checkout"
+                                    className="block w-full"
+                                    onClick={() => setIsOpen(false)}
                                 >
-                                    <Trash2 className="h-4 w-4 mr-1" />
-                                    Hapus
-                                </Button>
-                                <Link href="/checkout" className="flex-1" onClick={() => setIsOpen(false)}>
-                                    <Button className="w-full" size="lg">
+                                    <Button
+                                        className="w-full h-12 text-lg font-semibold shadow-lg shadow-primary/20"
+                                        size="lg"
+                                    >
                                         Checkout
-                                        <ArrowRight className="h-4 w-4 ml-2" />
+                                        <ArrowRight className="h-5 w-5 ml-2" />
                                     </Button>
                                 </Link>
                             </div>

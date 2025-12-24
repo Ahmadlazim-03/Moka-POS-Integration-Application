@@ -1,0 +1,36 @@
+BASE_URL: https://api.mokapos.com/v1
+Token: Found
+Fetching profile to access outlets...
+FETCH: https://api.mokapos.com/v1/profile/self
+Found outlets: [ 1136617, 1136618, 1136556 ]
+
+--- Checking Outlet ID: 1136617 ---
+FETCH: https://api.mokapos.com/v1/outlets/1136617/items
+No valid product (price > 0, not Custom Amount) found in this outlet. Skipping.
+
+--- Checking Outlet ID: 1136618 ---
+FETCH: https://api.mokapos.com/v1/outlets/1136618/items
+No valid product (price > 0, not Custom Amount) found in this outlet. Skipping.
+
+--- Checking Outlet ID: 1136556 ---
+FETCH: https://api.mokapos.com/v1/outlets/1136556/items
+Selected Product: Americano
+Variant: Pajak 1
+Price: 10000
+Sending Payload to Outlet 1136556
+Post Error 400: {"data":{"code":"001","message":"Required total_discount parameter, Required total_gratuity parameter, Required total_tax parameter","error":null,"timestamp":1766514896518},"meta":{"code":400,"error_message":"Checkout service rest error","error_type":"Exception"}}
+JSON Error Details: {
+  "data": {
+    "code": "001",
+    "message": "Required total_discount parameter, Required total_gratuity parameter, Required total_tax parameter",
+    "error": null,
+    "timestamp": 1766514896518
+  },
+  "meta": {
+    "code": 400,
+    "error_message": "Checkout service rest error",
+    "error_type": "Exception"
+  }
+}
+Check failed for outlet 1136556: Post failed: 400
+❌ SCRIPT FAILED: Failed to perform checkout in ANY outlet available.
