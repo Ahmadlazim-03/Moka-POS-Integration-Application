@@ -161,14 +161,13 @@ export default function CartDrawer() {
                             </ScrollArea>
                         </div>
 
-                        <div className="space-y-4 pt-4 border-t bg-white">
+                        <div className="pt-6 pb-6 px-4 border-t bg-white space-y-4">
                             {/* Summary */}
                             <div className="space-y-2">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-muted-foreground">Jumlah Item</span>
                                     <span className="font-medium">{totalItems} item</span>
                                 </div>
-                                <Separator />
                                 <div className="flex justify-between text-lg">
                                     <span className="font-semibold">Total</span>
                                     <span className="font-bold text-primary text-xl">
